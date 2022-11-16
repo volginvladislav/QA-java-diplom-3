@@ -1,8 +1,7 @@
 package api;
 
-import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-
+import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -14,7 +13,7 @@ public class UserSteps extends RestSteps{
                 .spec(getDefaultRequestSpec())
                 .body(user)
                 .when()
-                .post("/api/auth/register")
+                .post(CREATE_USER)
                 .then()
                 .assertThat()
                 .body("accessToken", notNullValue());
@@ -25,7 +24,7 @@ public class UserSteps extends RestSteps{
         return given()
                 .spec(getDefaultRequestSpec())
                 .body(user)
-                .post("/api/auth/login")
+                .post(LOGIN_USER)
                 .then()
                 .assertThat()
                 .body("accessToken", notNullValue());
@@ -35,7 +34,14 @@ public class UserSteps extends RestSteps{
         return given()
                 .header("authorization", accessToken)
                 .spec(getDefaultRequestSpec())
-                .delete("api/auth/user")
+                .delete(DELETE_USER)
                 .then();
+    }
+    public Response authorizationUserWithInvalidPassword(String email, String password) {
+        User user = new User(email, password);
+        return given()
+                .spec(getDefaultRequestSpec())
+                .body(user)
+                .post(LOGIN_USER);
     }
 }

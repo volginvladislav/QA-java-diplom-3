@@ -1,6 +1,7 @@
 import api.UserSteps;
 import constans.Urls;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -8,8 +9,8 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObject.LoginPage;
-import pageObject.RegistrationPage;
+import pageobject.LoginPage;
+import pageobject.RegistrationPage;
 
 
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
@@ -25,6 +26,7 @@ public class RegistrationPageTest {
     String email;
     String name;
     String password;
+    Response response;
 
     @Before
     public void setUp() {
@@ -62,9 +64,11 @@ public class RegistrationPageTest {
     @DisplayName("Проверка регистрации нового пользователя с невалидным паролем - 5 символов")
     public void checkRegistrationWithInvalidPassword() {
         String wrongPassword = RandomStringUtils.randomAlphanumeric(5);
+        response = userSteps.authorizationUserWithInvalidPassword(email, wrongPassword);
         registrationPage.userRegistration(name, email, wrongPassword);
         registrationPage.waitError();
         assertEquals("Некорректный пароль", registrationPage.getError());
+        accessToken = response.path("accessToken");
     }
 }
 

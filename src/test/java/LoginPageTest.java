@@ -8,10 +8,10 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObject.HomePage;
-import pageObject.LoginPage;
-import pageObject.PasswordRecoveryPage;
-import pageObject.RegistrationPage;
+import pageobject.HomePage;
+import pageobject.LoginPage;
+import pageobject.PasswordRecoveryPage;
+import pageobject.RegistrationPage;
 
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
 import static org.junit.Assert.assertEquals;

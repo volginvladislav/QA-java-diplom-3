@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import pageObject.HomePage;
+import pageobject.HomePage;
 
 import static org.junit.Assert.assertTrue;
 
