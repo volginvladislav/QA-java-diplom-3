@@ -64,8 +64,8 @@ public class RegistrationPageTest {
     @DisplayName("Проверка регистрации нового пользователя с невалидным паролем - 5 символов")
     public void checkRegistrationWithInvalidPassword() {
         String wrongPassword = RandomStringUtils.randomAlphanumeric(5);
-        response = userSteps.authorizationUserWithInvalidPassword(email, wrongPassword);
         registrationPage.userRegistration(name, email, wrongPassword);
+        response = userSteps.authorizationUserWithInvalidPassword(email, wrongPassword);
         registrationPage.waitError();
         assertEquals("Некорректный пароль", registrationPage.getError());
         accessToken = response.path("accessToken");
