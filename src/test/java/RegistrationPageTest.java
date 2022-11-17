@@ -66,9 +66,9 @@ public class RegistrationPageTest {
         String wrongPassword = RandomStringUtils.randomAlphanumeric(5);
         registrationPage.userRegistration(name, email, wrongPassword);
         response = userSteps.authorizationUserWithInvalidPassword(email, wrongPassword);
+        accessToken = response.path("accessToken");
         registrationPage.waitError();
         assertEquals("Некорректный пароль", registrationPage.getError());
-        accessToken = response.path("accessToken");
     }
 }
 
